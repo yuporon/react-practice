@@ -7,7 +7,7 @@
 
 - `develop` ブランチから自身専用の develop ブランチを切ります。命名は `{自身の GitHub 名}/develop` にします。
   - ex) `ryochike/develop`
-- そのブランチから各 Issue に対応するブランチを切ります。命名は `{自身の GitHub 名/feature/question-{取り組む課題No}` にします。
+- そのブランチから各 Issue に対応するブランチを切ります。命名は `{自身の GitHub 名}/feature/question-{取り組む課題No}` にします。
   - ex) `ryochike/feature/question-1`
 - 自身専用の develop ブランチに向けて Pull Request を作成します
 - メンターにレビュー依頼をし、 Approved ならマージします

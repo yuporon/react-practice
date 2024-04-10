@@ -15,11 +15,11 @@
 
 ## 学習の進め方
 
-- `main` ブランチから自身専用のブランチを切ります。命名は `{username}` にします。
-  - ex) `ryochike`
-- そのブランチから各 Issue に対応するブランチを切ります。命名は `{username}/feature/question-{取り組む課題No}` にします。
-  - ex) `ryochike/feature/question-1`
-- 自身専用のブランチに向けて Pull Request を作成します
+- このリポジトリを自身のプライベートリポジトリとしてクローンします
+  - 事前にメンターを招待しておいてください
+- そのブランチから各 Issue に対応するブランチを切ります。
+  - ex) `feature/question-1`
+- Pull Request を作成します
 - メンターにレビュー依頼をし、 Approved ならマージします
 
 ---

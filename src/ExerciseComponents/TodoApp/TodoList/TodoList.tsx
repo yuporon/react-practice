@@ -10,7 +10,6 @@ type TodoListProps = {
 
 export function TodoList({ query, status}: TodoListProps) {
   const { todoList, toggleTodo, deleteTodo } = useTodoList();
-  console.log(todoList)
   const regex = new RegExp(query, 'i')
   const filteredTodoList = todoList.filter((todo: Todo) => {
     const isQueryMatch = query === '' || regex.test(todo.title)

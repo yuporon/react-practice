@@ -9,7 +9,8 @@ type TodoListProps = {
 };
 
 export function TodoList({ query, status}: TodoListProps) {
-  const { todoList, toggleTodo } = useTodoList();
+  const { todoList, toggleTodo, deleteTodo } = useTodoList();
+  console.log(todoList)
   const regex = new RegExp(query, 'i')
   const filteredTodoList = todoList.filter((todo: Todo) => {
     const isQueryMatch = query === '' || regex.test(todo.title)
@@ -50,7 +51,9 @@ export function TodoList({ query, status}: TodoListProps) {
               <Button
                 size="xs"
                 onClick={() => {
-                  alert("実装してください");
+                  deleteTodo({
+                    id: todo.id,
+                  });
                 }}
               >
                 削除

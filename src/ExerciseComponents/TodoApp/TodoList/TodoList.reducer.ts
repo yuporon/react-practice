@@ -35,20 +35,24 @@ export const reducer = (
 ): TodoListState => {
   switch (action.type) {
     case "toggle":
-      const newState = {
+      const newStateForToggle = {
         todoList: state.todoList.map((todo) =>
           todo.id === action.payload.id
             ? { ...todo, completed: !todo.completed }
             : todo
         ),
       };
-      return newState;
+      return newStateForToggle;
     case "create":
       // TODO: 作成ロジックを実装してください https://github.com/Ryochike/react-practice/issues/10
       return state;
     case "delete":
-      // TODO: 削除ロジックを実装してください https://github.com/Ryochike/react-practice/issues/9
-      return state;
+      const newStateForDelete = {
+        todoList: state.todoList.filter(
+          (todo) => todo.id !== action.payload.id
+        ),
+      };
+      return newStateForDelete;
     default:
       return state;
   }

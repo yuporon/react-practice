@@ -9,7 +9,6 @@ type TodoListProps = {
 };
 
 export function TodoList({ todoList, query, status}: TodoListProps) {
-  // TODO: フィルタリングロジックを実装してください https://github.com/Ryochike/react-practice/issues/7
   const regex = new RegExp(query, 'i')
   const filteredTodoList = todoList.filter((todo: Todo) => {
     const isQueryMatch = query === '' || regex.test(todo.title)

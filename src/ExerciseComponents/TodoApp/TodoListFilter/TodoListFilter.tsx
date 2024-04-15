@@ -4,9 +4,6 @@ import type { TodoFilterStatus } from "./TodoListFilter.type"
 import { ChangeEvent, ChangeEventHandler } from "react";
 export type TodoListFilterProps = UseTodoListFilterReturn;
 
-/**
- * @see https://github.com/Ryochike/react-practice/issues/7
- */
 export function TodoListFilter({
   query,
   status,

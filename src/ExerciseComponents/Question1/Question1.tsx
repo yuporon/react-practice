@@ -12,13 +12,24 @@ import {
   Center,
 } from "@chakra-ui/react";
 
-function TimerModal({ isOpen, onClose }: { isOpen: any; onClose: any }) {
+type TimerModalProps = {
+  isOpen: boolean;
+  onClose: () => void
+}
+
+function TimerModal({ isOpen, onClose }: TimerModalProps) {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    setInterval(() => {
-      setCount(count + 1);
-    }, 1000);
-  }, []);
+    if (isOpen) {
+      const intervalId = setInterval(() => {
+        setCount((prevCount) => prevCount + 1);
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    } else {
+      setCount(0);
+    }
+  }, [isOpen]);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />

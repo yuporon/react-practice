@@ -6,14 +6,13 @@ import { TodoList } from "./TodoList/TodoList";
 import { defaultTodoList } from "./Todo.fixture"
 
 export function TodoApp() {
-  const [todoList, setTodoList] = useState(defaultTodoList)
   const todoListFilter = useTodoListFilter();
 
   return (
     <Box as="main" p={4} maxWidth={300} mx="auto">
       <VStack gap={4} align="start">
         <TodoListFilter {...todoListFilter} />
-        <TodoList todoList={todoList} query={todoListFilter.query} status={todoListFilter.status} />
+        <TodoList query={todoListFilter.query} status={todoListFilter.status} />
       </VStack>
     </Box>
   );

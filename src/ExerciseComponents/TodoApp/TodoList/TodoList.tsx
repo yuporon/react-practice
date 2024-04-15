@@ -1,14 +1,15 @@
 import { Button, Checkbox, HStack, List, ListItem } from "@chakra-ui/react";
 import { Todo } from "../Todo.type";
 import type { TodoFilterStatus } from "../TodoListFilter/TodoListFilter.type"
+import { useTodoList } from "./useTodoList";
 
 type TodoListProps = {
-  todoList: Todo[];
   query: string;
   status: TodoFilterStatus;
 };
 
-export function TodoList({ todoList, query, status}: TodoListProps) {
+export function TodoList({ query, status}: TodoListProps) {
+  const { todoList, toggleTodo } = useTodoList();
   const regex = new RegExp(query, 'i')
   const filteredTodoList = todoList.filter((todo: Todo) => {
     const isQueryMatch = query === '' || regex.test(todo.title)
@@ -30,7 +31,6 @@ export function TodoList({ todoList, query, status}: TodoListProps) {
     )
   }
 
-
   return (
     <List spacing={2} w="100%">
       {filteredTodoList.map((todo) => {
@@ -40,7 +40,9 @@ export function TodoList({ todoList, query, status}: TodoListProps) {
               <Checkbox
                 isChecked={todo.completed}
                 onChange={() => {
-                  alert("実装してください");
+                  toggleTodo({
+                    id: todo.id,
+                  });
                 }}
               >
                 {todo.title}

@@ -1,13 +1,30 @@
 import { Button, Checkbox, HStack, List, ListItem } from "@chakra-ui/react";
 import { Todo } from "../Todo.type";
+import type { TodoFilterStatus } from "../TodoListFilter/TodoListFilter.type"
 
 type TodoListProps = {
   todoList: Todo[];
+  query: string;
+  status: TodoFilterStatus;
 };
 
-export function TodoList({ todoList }: TodoListProps) {
+export function TodoList({ todoList, query, status}: TodoListProps) {
   // TODO: フィルタリングロジックを実装してください https://github.com/Ryochike/react-practice/issues/7
-  const filteredTodoList = todoList;
+  const regex = new RegExp(query, 'i')
+  const filteredTodoList = todoList.filter((todo: Todo) => {
+    const isQueryMatch = query === '' || regex.test(todo.title)
+    switch (status) {
+      case 'all':
+        return todo && isQueryMatch
+      case 'active':
+        return !todo.completed && isQueryMatch
+      case 'completed':
+        return todo.completed && isQueryMatch
+      default:
+        return false
+    }
+  })
+
 
   return (
     <>

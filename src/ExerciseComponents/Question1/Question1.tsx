@@ -24,10 +24,10 @@ function TimerModal({ isOpen, onClose }: TimerModalProps) {
       const intervalId = setInterval(() => {
         setCount((prevCount) => prevCount + 1);
       }, 1000);
-      return () => {
-        setCount(0)
-        clearInterval(intervalId);
-      }
+
+      return () => clearInterval(intervalId);
+    } else {
+      setCount(0);
     }
   }, [isOpen]);
   return (

@@ -23,16 +23,15 @@ export function TodoListFilter({
       </FormControl>
       <FormControl as='fieldset'>
         <RadioGroup
-          defaultValue='all'
           value={status}
-          onChange={(e) =>
-            handleFilterStatusChange(e)
+          onChange={(value) =>
+            handleFilterStatusChange(value)
           }
         >
           <HStack spacing='24px'>
-            <Radio value='all'>all</Radio>
-            <Radio value='active'>active</Radio>
-            <Radio value='completed'>completed</Radio>
+            <Radio value='all'>全て</Radio>
+            <Radio value='active'>未完了</Radio>
+            <Radio value='completed'>完了</Radio>
           </HStack>
         </RadioGroup>
       </FormControl>

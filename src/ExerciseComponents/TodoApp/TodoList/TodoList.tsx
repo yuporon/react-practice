@@ -24,39 +24,39 @@ export function TodoList({ todoList, query, status}: TodoListProps) {
     }
   })
 
+  if (filteredTodoList.length === 0) {
+    return (
+      <p>タスクがありません。</p>
+    )
+  }
+
 
   return (
-    <>
-      {filteredTodoList.length === 0 ? (
-        <p>タスクがありません。</p>
-      ) : (
-        <List spacing={2} w="100%">
-          {filteredTodoList.map((todo) => {
-            return (
-              <ListItem key={todo.id}>
-                <HStack justify="space-between">
-                  <Checkbox
-                    isChecked={todo.completed}
-                    onChange={() => {
-                      alert("実装してください");
-                    }}
-                  >
-                    {todo.title}
-                  </Checkbox>
-                  <Button
-                    size="xs"
-                    onClick={() => {
-                      alert("実装してください");
-                    }}
-                  >
-                    削除
-                  </Button>
-                </HStack>
-              </ListItem>
-            );
-          })}
-        </List>
-      )}
-    </>
+    <List spacing={2} w="100%">
+      {filteredTodoList.map((todo) => {
+        return (
+          <ListItem key={todo.id}>
+            <HStack justify="space-between">
+              <Checkbox
+                isChecked={todo.completed}
+                onChange={() => {
+                  alert("実装してください");
+                }}
+              >
+                {todo.title}
+              </Checkbox>
+              <Button
+                size="xs"
+                onClick={() => {
+                  alert("実装してください");
+                }}
+              >
+                削除
+              </Button>
+            </HStack>
+          </ListItem>
+        );
+      })}
+    </List>
   );
 }

@@ -13,11 +13,7 @@ export function TodoApp() {
     <Box as="main" p={4} maxWidth={300} mx="auto">
       <VStack gap={4} align="start">
         <TodoListFilter {...todoListFilter} />
-        {todoList.length === 0 ? (
-          <p>タスクがありません。</p>
-        ) : (
-          <TodoList todoList={todoList} />
-        )}
+        <TodoList todoList={todoList} query={todoListFilter.query} status={todoListFilter.status} />
       </VStack>
     </Box>
   );

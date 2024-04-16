@@ -1,15 +1,14 @@
 import { Button, Checkbox, HStack, List, ListItem } from "@chakra-ui/react";
 import { Todo } from "../Todo.type";
 import type { TodoFilterStatus } from "../TodoListFilter/TodoListFilter.type"
-import { useTodoList } from "./useTodoList";
+import { UseTodoListReturn } from "./useTodoList";
 
 type TodoListProps = {
   query: string;
   status: TodoFilterStatus;
-};
+} & Pick<UseTodoListReturn, 'todoList' | 'toggleTodo' | 'deleteTodo'>;
 
-export function TodoList({ query, status}: TodoListProps) {
-  const { todoList, toggleTodo, deleteTodo } = useTodoList();
+export function TodoList({ todoList, query, status, toggleTodo, deleteTodo }: TodoListProps) {
   const regex = new RegExp(query, 'i')
   const filteredTodoList = todoList.filter((todo: Todo) => {
     const isQueryMatch = query === '' || regex.test(todo.title)

@@ -15,11 +15,30 @@ export function TodoCreationForm({ onCreateTodo }: TodoCreationFormProps) {
   const [titleError, setTitleError] = useState<string | undefined>(undefined);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTitle = e.target.value;
-    setTitle(newTitle);
-    validateTitle(newTitle);
+  const validateTitle = useCallback((inputTitle: string) => {
+    return inputTitle.trim().length > 0;
   }, []);
+
+  const handleValidation = useCallback(
+    (inputTitle: string) => {
+      if (!validateTitle(inputTitle)) {
+        setTitleError("タイトルを入力してください");
+        inputRef.current?.focus();
+      } else {
+        setTitleError(undefined);
+      }
+    },
+    [validateTitle]
+  );
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newTitle = e.target.value;
+      setTitle(newTitle);
+      handleValidation(newTitle);
+    },
+    [handleValidation]
+  );
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,17 +50,6 @@ export function TodoCreationForm({ onCreateTodo }: TodoCreationFormProps) {
     },
     [title, onCreateTodo]
   );
-
-  const validateTitle = useCallback((inputTitle: string) => {
-    if (!inputTitle.trim()) {
-      setTitleError("タイトルを入力してください");
-      inputRef.current?.focus();
-      return false;
-    } else {
-      setTitleError(undefined);
-      return true;
-    }
-  }, []);
 
   return (
     <form onSubmit={handleSubmit}>

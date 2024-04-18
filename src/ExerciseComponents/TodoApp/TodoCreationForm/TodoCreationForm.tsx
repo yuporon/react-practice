@@ -8,9 +8,9 @@ import {
 import { useCallback, useRef, useState } from "react";
 import { UseTodoListReturn } from "../TodoList/useTodoList";
 
-type TodoCreationFormProps = Pick<UseTodoListReturn, "createTodo">;
+type TodoCreationFormProps = Pick<UseTodoListReturn, "onCreateTodo">;
 
-export function TodoCreationForm({ createTodo }: TodoCreationFormProps) {
+export function TodoCreationForm({ onCreateTodo }: TodoCreationFormProps) {
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState<string | undefined>(undefined);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,11 +25,11 @@ export function TodoCreationForm({ createTodo }: TodoCreationFormProps) {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (validateTitle(title)) {
-        createTodo({ title: title.trim() });
+        onCreateTodo({ title: title.trim() });
         setTitle("");
       }
     },
-    [title, createTodo]
+    [title, onCreateTodo]
   );
 
   const validateTitle = useCallback((inputTitle: string) => {

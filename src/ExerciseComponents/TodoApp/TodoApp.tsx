@@ -7,17 +7,17 @@ import { TodoCreationForm } from "./TodoCreationForm/TodoCreationForm";
 
 export function TodoApp() {
   const todoListFilter = useTodoListFilter();
-  const { todoList, toggleTodo, createTodo, deleteTodo } = useTodoList();
+  const { todoList, onToggleTodo, onCreateTodo, onDeleteTodo } = useTodoList();
 
   return (
     <Box as="main" p={4} maxWidth={300} mx="auto">
       <VStack gap={4} align="start">
         <TodoListFilter {...todoListFilter} />
-        <TodoCreationForm createTodo={createTodo} />
+        <TodoCreationForm onCreateTodo={onCreateTodo} />
         <TodoList
           todoList={todoList}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
+          onToggleTodo={onToggleTodo}
+          onDeleteTodo={onDeleteTodo}
           query={todoListFilter.query}
           status={todoListFilter.status}
         />

@@ -4,7 +4,7 @@ import { reducer, initialState } from "./TodoList.reducer";
 export function useTodoList() {
   const [{ todoList }, dispatch] = useReducer(reducer, initialState);
 
-  const toggleTodo = useCallback(({ id }: { id: number }) => {
+  const onToggleTodo = useCallback(({ id }: { id: number }) => {
     dispatch({
       type: "toggle",
       payload: {
@@ -13,7 +13,7 @@ export function useTodoList() {
     });
   }, []);
 
-  const createTodo = useCallback(({ title }: { title: string }) => {
+  const onCreateTodo = useCallback(({ title }: { title: string }) => {
     dispatch({
       type: "create",
       payload: {
@@ -22,7 +22,7 @@ export function useTodoList() {
     });
   }, []);
 
-  const deleteTodo = useCallback(({ id }: { id: number }) => {
+  const onDeleteTodo = useCallback(({ id }: { id: number }) => {
     dispatch({
       type: "delete",
       payload: {
@@ -33,9 +33,9 @@ export function useTodoList() {
 
   return {
     todoList,
-    toggleTodo,
-    createTodo,
-    deleteTodo,
+    onToggleTodo,
+    onCreateTodo,
+    onDeleteTodo,
   };
 }
 

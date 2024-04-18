@@ -1,18 +1,26 @@
 import { Box, VStack } from "@chakra-ui/react";
-import { useState } from "react";
-import { TodoListFilter } from "./TodoListFilter/TodoListFilter";
+import { useTodoList } from "./TodoList/useTodoList";
 import { useTodoListFilter } from "./TodoListFilter/useTodoListFilter";
 import { TodoList } from "./TodoList/TodoList";
-import { defaultTodoList } from "./Todo.fixture"
+import { TodoListFilter } from "./TodoListFilter/TodoListFilter";
+import { TodoCreationForm } from "./TodoCreationForm/TodoCreationForm";
 
 export function TodoApp() {
   const todoListFilter = useTodoListFilter();
+  const { todoList, onToggleTodo, onCreateTodo, onDeleteTodo } = useTodoList();
 
   return (
     <Box as="main" p={4} maxWidth={300} mx="auto">
       <VStack gap={4} align="start">
         <TodoListFilter {...todoListFilter} />
-        <TodoList query={todoListFilter.query} status={todoListFilter.status} />
+        <TodoCreationForm onCreateTodo={onCreateTodo} />
+        <TodoList
+          todoList={todoList}
+          onToggleTodo={onToggleTodo}
+          onDeleteTodo={onDeleteTodo}
+          query={todoListFilter.query}
+          status={todoListFilter.status}
+        />
       </VStack>
     </Box>
   );

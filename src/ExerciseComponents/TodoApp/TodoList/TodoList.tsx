@@ -1,35 +1,37 @@
 import { Button, Checkbox, HStack, List, ListItem } from "@chakra-ui/react";
 import { Todo } from "../Todo.type";
-import type { TodoFilterStatus } from "../TodoListFilter/TodoListFilter.type"
-import { useTodoList } from "./useTodoList";
+import type { TodoFilterStatus } from "../TodoListFilter/TodoListFilter.type";
+import { UseTodoListReturn } from "./useTodoList";
 
 type TodoListProps = {
   query: string;
   status: TodoFilterStatus;
-};
+} & Pick<UseTodoListReturn, "todoList" | "onToggleTodo" | "onDeleteTodo">;
 
-export function TodoList({ query, status}: TodoListProps) {
-  const { todoList, toggleTodo, deleteTodo } = useTodoList();
-  console.log(todoList)
-  const regex = new RegExp(query, 'i')
+export function TodoList({
+  todoList,
+  query,
+  status,
+  onToggleTodo,
+  onDeleteTodo,
+}: TodoListProps) {
+  const regex = new RegExp(query, "i");
   const filteredTodoList = todoList.filter((todo: Todo) => {
-    const isQueryMatch = query === '' || regex.test(todo.title)
+    const isQueryMatch = query === "" || regex.test(todo.title);
     switch (status) {
-      case 'all':
-        return todo && isQueryMatch
-      case 'active':
-        return !todo.completed && isQueryMatch
-      case 'completed':
-        return todo.completed && isQueryMatch
+      case "all":
+        return todo && isQueryMatch;
+      case "active":
+        return !todo.completed && isQueryMatch;
+      case "completed":
+        return todo.completed && isQueryMatch;
       default:
-        return false
+        return false;
     }
-  })
+  });
 
   if (filteredTodoList.length === 0) {
-    return (
-      <p>タスクがありません。</p>
-    )
+    return <p>タスクがありません。</p>;
   }
 
   return (
@@ -41,7 +43,7 @@ export function TodoList({ query, status}: TodoListProps) {
               <Checkbox
                 isChecked={todo.completed}
                 onChange={() => {
-                  toggleTodo({
+                  onToggleTodo({
                     id: todo.id,
                   });
                 }}
@@ -51,7 +53,7 @@ export function TodoList({ query, status}: TodoListProps) {
               <Button
                 size="xs"
                 onClick={() => {
-                  deleteTodo({
+                  onDeleteTodo({
                     id: todo.id,
                   });
                 }}

@@ -5,30 +5,63 @@ import {
   HStack,
   Input,
 } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { UseTodoListReturn } from "../TodoList/useTodoList";
 
-type TodoCreationFormProps = {
-  onCreateTodo: (title: string) => void;
-};
+type TodoCreationFormProps = Pick<UseTodoListReturn, "onCreateTodo">;
 
 export function TodoCreationForm({ onCreateTodo }: TodoCreationFormProps) {
-  const titleRef = useRef<HTMLInputElement>(null);
+  const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState<string | undefined>(undefined);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const validateTitle = useCallback((inputTitle: string) => {
+    return inputTitle.trim().length > 0;
+  }, []);
+
+  const handleValidation = useCallback(
+    (inputTitle: string) => {
+      if (!validateTitle(inputTitle)) {
+        setTitleError("タイトルを入力してください");
+        inputRef.current?.focus();
+      } else {
+        setTitleError(undefined);
+      }
+    },
+    [validateTitle]
+  );
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newTitle = e.target.value;
+      setTitle(newTitle);
+      handleValidation(newTitle);
+    },
+    [handleValidation]
+  );
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (validateTitle(title)) {
+        onCreateTodo({ title: title.trim() });
+        setTitle("");
+      }
+    },
+    [title, onCreateTodo]
+  );
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        if (titleRef.current === null) {
-          return;
-        }
-        // TODO: 入力された値でタスクを作成する処理を実装してください https://github.com/Ryochike/react-practice/issues/10
-        onCreateTodo("TODO");
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <HStack gap={2} align="start">
         <FormControl isInvalid={!!titleError}>
-          <Input ref={titleRef} size="sm" placeholder="Learn React" />
+          <Input
+            size="sm"
+            placeholder="Learn React"
+            value={title}
+            onChange={handleChange}
+            ref={inputRef}
+          />
           <FormErrorMessage>{titleError}</FormErrorMessage>
         </FormControl>
         <Button type="submit" size="sm">
